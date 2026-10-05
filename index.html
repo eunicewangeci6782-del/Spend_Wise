@@ -1,35 +1,247 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>SpendWise</title>
-
+    <title>SpendWise | Smart Budget Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <header>
-        <h1>SpendWise</h1>
-        <p>Simple budgeting made easier.</p>
+        <div class="container nav">
+            <div class="logo">
+                <span class="logo-icon">S</span>
+                <div>
+                    <h1>SpendWise</h1>
+                    <p>Smart spending starts here.</p>
+                </div>
+            </div>
+
+            <span class="status-pill">● Budget Tracker</span>
+        </div>
     </header>
 
-    <main>
-        <section>
-            <h2>Budget Tracker</h2>
+    <main class="container">
 
-            <p>
-                Click the button below to enter your budget
-                and expenses.
+        <!-- Hero -->
+        <section class="hero">
+            <div>
+                <p class="eyebrow">PERSONAL FINANCE</p>
+                <h2>Make every shilling<br>count.</h2>
+                <p class="hero-text">
+                    Track your expenses, understand your spending,
+                    and stay in control of your budget.
+                </p>
+            </div>
+
+            <div class="hero-card">
+                <span>💰</span>
+                <strong>Spend smarter.</strong>
+                <small>Save for what matters.</small>
+            </div>
+        </section>
+
+        <!-- Budget Form -->
+        <section class="card budget-section">
+            <div>
+                <p class="eyebrow">MONTHLY PLAN</p>
+                <h3>Set your budget</h3>
+                <p class="muted">
+                    Enter the amount you have available for the month.
+                </p>
+            </div>
+
+            <form id="budgetForm" class="budget-form">
+                <label for="budgetInput">Budget (KSh)</label>
+
+                <div class="input-button">
+                    <input
+                        type="number"
+                        id="budgetInput"
+                        placeholder="e.g. 50000"
+                        min="1"
+                        step="0.01"
+                        required
+                    >
+
+                    <button type="submit">Set Budget</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Dashboard -->
+        <section class="dashboard">
+
+            <div class="stat-card">
+                <span class="stat-icon">💵</span>
+                <p>Monthly Budget</p>
+                <h3 id="budgetDisplay">KSh 0.00</h3>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-icon">📊</span>
+                <p>Total Spent</p>
+                <h3 id="spentDisplay">KSh 0.00</h3>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-icon">💚</span>
+                <p>Remaining</p>
+                <h3 id="remainingDisplay">KSh 0.00</h3>
+            </div>
+
+            <div class="stat-card">
+                <span class="stat-icon">🧾</span>
+                <p>Expenses</p>
+                <h3 id="countDisplay">0</h3>
+            </div>
+
+        </section>
+
+        <!-- Budget Status -->
+        <section class="card status-section">
+
+            <div class="status-top">
+                <div>
+                    <p class="eyebrow">BUDGET HEALTH</p>
+                    <h3 id="statusTitle">Ready to get started</h3>
+                </div>
+
+                <span id="statusBadge" class="badge neutral">
+                    Waiting
+                </span>
+            </div>
+
+            <div class="progress-track">
+                <div id="progressBar" class="progress-bar"></div>
+            </div>
+
+            <p id="statusMessage" class="status-message">
+                Set your budget to begin tracking your spending.
             </p>
 
-            <button onclick="startBudget()">Start Budget</button>
         </section>
+
+        <!-- Main Content -->
+        <section class="main-grid">
+
+            <!-- Add Expense -->
+            <section class="card expense-form-card">
+
+                <div class="section-heading">
+                    <p class="eyebrow">NEW EXPENSE</p>
+                    <h3>Add an expense</h3>
+                </div>
+
+                <form id="expenseForm">
+
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input
+                            type="text"
+                            id="description"
+                            placeholder="e.g. Groceries"
+                            maxlength="50"
+                            required
+                        >
+                    </div>
+
+                    <div class="two-columns">
+
+                        <div class="form-group">
+                            <label for="amount">Amount (KSh)</label>
+                            <input
+                                type="number"
+                                id="amount"
+                                placeholder="0.00"
+                                min="0.01"
+                                step="0.01"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Category</label>
+
+                            <select id="category" required>
+                                <option value="">Select category</option>
+                                <option value="Food">Food</option>
+                                <option value="Transport">Transport</option>
+                                <option value="Housing">Housing</option>
+                                <option value="Bills">Bills</option>
+                                <option value="Shopping">Shopping</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Health">Health</option>
+                                <option value="Education">Education</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expenseDate">Date</label>
+                        <input type="date" id="expenseDate" required>
+                    </div>
+
+                    <button class="add-button" type="submit">
+                        + Add Expense
+                    </button>
+
+                    <p id="formMessage" class="form-message"></p>
+
+                </form>
+
+            </section>
+
+            <!-- Expense List -->
+            <section class="card expenses-card">
+
+                <div class="section-heading list-heading">
+                    <div>
+                        <p class="eyebrow">TRANSACTIONS</p>
+                        <h3>Recent expenses</h3>
+                    </div>
+
+                    <button
+                        id="clearButton"
+                        class="clear-button"
+                        type="button"
+                    >
+                        Clear All
+                    </button>
+                </div>
+
+                <div id="emptyState" class="empty-state">
+                    <div class="empty-icon">🧾</div>
+                    <h4>No expenses yet</h4>
+                    <p>
+                        Your expenses will appear here when you add them.
+                    </p>
+                </div>
+
+                <div
+                    id="expenseList"
+                    class="expense-list"
+                ></div>
+
+            </section>
+
+        </section>
+
     </main>
+
+    <footer>
+        <div class="container">
+            <p>SpendWise © 2026 · Built with HTML, CSS & JavaScript</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 
 </body>
 </html>
+```
